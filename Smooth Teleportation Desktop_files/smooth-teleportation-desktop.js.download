@@ -1,0 +1,58 @@
+/*********************************************************************************
+ ** If you want or need, you can freely use my code. Just credit me, please :)  **
+ ********************************************************************************/
+
+AFRAME.registerComponent('smooth-teleportation', {
+	init: function () {
+		var el = this.el;
+
+		// When hovering on the NavMesh, show a green cursor
+		el.addEventListener('mouseenter', function () {
+			el.setAttribute('material', 'color', '#00AA00');
+		});
+
+		// When leaving the NavMesh, show a red cursor
+		el.addEventListener('mouseleave', function () {
+			el.setAttribute('material', 'color', '#FF0000');
+		});
+
+		// On click, animate the cylinder (destination preview) and move the camera rig to the target location
+		el.addEventListener('click', function (e) {
+			var cyl = document.querySelector('#cyl');
+			var cylHeight = cyl.getAttribute('height');
+			var cameraRig = document.querySelector('#cam-rig');
+			var stringify = AFRAME.utils.coordinates.stringify;
+
+			// Animate the cylinder
+			cyl.setAttribute('animation__S', {
+				property: 'scale',
+				from: '0.1 1 0.1',
+				to: '1 1 1',
+				dur: 1000,
+				easing: 'easeOutQuad',
+				startEvents: 'clicked'
+			});
+			cyl.setAttribute('animation__O', {
+				property: 'material.opacity',
+				from: 0.75,
+				to: 0,
+				dur: 1500,
+				easing: 'easeOutQuad',
+				startEvents: 'clicked'
+			});
+			
+			// Change the cylinder's position
+			cyl.setAttribute('position', stringify(e.detail.intersection.point));
+			cyl.object3D.position.y = cylHeight / 2;
+			cyl.emit('clicked');
+
+			// Move the camera rig
+			cameraRig.setAttribute('animation', {
+				property: 'position',
+				to: stringify(e.detail.intersection.point),
+				easing: 'linear',
+				dur: 1500
+			});
+		});
+	}
+});

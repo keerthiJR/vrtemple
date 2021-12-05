@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Displaying 3D models</title>
+        <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+			<script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
+            <script src="./Smooth Teleportation Desktop_files/aframe-animation-component.min.js.download"></script>
+            <!-- aframe-inspector-plugin-recast @ https://github.com/donmccurdy/aframe-inspector-plugin-recast -->
+            <!-- smooth-teleportation * my custom component to control entities and interactions programmatically -->
+            <script src="./Smooth Teleportation Desktop_files/smooth-teleportation-desktop.js.download"></script>
+            <script async="" src="./Smooth Teleportation Desktop_files/js"></script>
+    </head>
+    <body>
+        <a-scene inspector-plugin-recast>
+          
+            <a-assets>
+                <img id="sky" src="L14-ASSETs/clear-sunny-sky.jpg">
+				<!-- <img id="ground" src="L14-ASSETs/floor-1024.jpg" > -->
+                <a-asset-item id="navmesh" src="./Smooth Teleportation Desktop_files/navmesh.gltf"></a-asset-item>
+				<a-asset-item id="your-3Dmodel-02" src="L14-ASSETs/ramasaami-kovil1/temple.glb"></a-asset-item>
+				<a-asset-item id="your-3Dmodel-01" src="L14-ASSETs/proto2.glb" ></a-asset-item>
+
+
+            </a-assets>
+            
+			<!-- <a-entity id="cam-rig" animation=""> -->
+                <!-- Camera -->
+                <!-- <a-entity camera="" position="0 5 5" look-controls="pointerLockEnabled: true" rotation=""> -->
+                    <!-- Cursor Raycaster -->
+                    <!-- <a-entity id="my-cursor" cursor="" position=" 0 0 -1" geometry="primitive: sphere; radius: 0.005" material="color: #FF0000; shader: flat;" raycaster="objects: .clickable" smooth-teleportation="">
+                    </a-entity>
+                </a-entity>
+            </a-entity>
+			<a-animation attribute="position" to=".7 3 -6" dur="6000" delay="3000" easing="ease-out-quad"></a-animation>
+			</a-camera> -->
+            <a-entity
+          animation="property: position; to:-8 -140 0; dur:3000; delay:3000; easing:easeOutQuad"
+          animation__o="property: position;from:-8 -140 0; to:0 -140 -150; dur:3000; delay:6000; easing:easeOutQuad"
+          >
+            <a-entity camera="active: true" look-controls wasd-controls="acceleration: 800" position="0 80 200" data-aframe-default-camera>
+                <a-cursor color="#333" maxDistance="30"></a-cursor>
+                <!-- <a-animation attribute="position" to="-8 -60 200" dur="3000" delay="3000" easing="ease-out-quad"></a-animation> -->
+                <!-- <a-animation attribute="-8 -60 200" to="0 0 -10" dur="3000" delay="6000" easing="ease-out-quad" ></a-animation> -->
+                 </a-entity>
+                </a-entity> 
+            
+            
+            <a-sky src="#sky"></a-sky>
+			        <a-plane src="#ground" scale="40 40 1" repeat="2 2" rotation="-90 0 0" >
+        </a-plane>
+       
+                         <a-entity position="0 0 -14" gltf-model="#your-3Dmodel-02" scale=".8 .8 .8"></a-entity> 
+                        <a-entity position="2 -68 4" gltf-model="#your-3Dmodel-01" scale="12 12 12" roughness=".5" rotation="" visible=""></a-entity>
+        </a-scene>
+    </body>
+</html>
